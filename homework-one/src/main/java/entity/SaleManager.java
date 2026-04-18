@@ -1,8 +1,14 @@
+package entity;
+
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString(callSuper = true)
+@EqualsAndHashCode
 public class SaleManager extends Employee{
     private double totalSales;
     private double bonus;
@@ -16,14 +22,7 @@ public class SaleManager extends Employee{
     }
 
     @Override
-    public void display() {
-        super.display();
-        System.out.println("Объем продаж: " + totalSales);
-        System.out.println("Бонус в процентах: " + bonus);
-
-    }
-
-    double calculateSalary(){
-        return getBaseSalary() * (1 + getBonus());
+    public double calculateSalary(){
+        return getBaseSalary() + totalSales * bonus / 100;
     }
 }

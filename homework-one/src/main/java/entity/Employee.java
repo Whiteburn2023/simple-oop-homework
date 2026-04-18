@@ -1,9 +1,14 @@
+package entity;
+
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
-public class Employee extends Person{
+@ToString(callSuper = true)
+public abstract class Employee extends Person{
     private String company;
     private String position;
     private double baseSalary;
@@ -15,12 +20,5 @@ public class Employee extends Person{
         this.baseSalary = baseSalary;
     }
 
-    @Override
-    public void display() {
-        super.display();
-        System.out.println("Компания: " + company);
-        System.out.println("Должность: " + company);
-        System.out.println("Зарплата(Оклад): " + baseSalary);
-
-    }
+    public abstract double calculateSalary();
 }

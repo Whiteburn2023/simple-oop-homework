@@ -1,8 +1,14 @@
+package entity;
+
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString(callSuper = true)
+@EqualsAndHashCode
 public class WageEmployee extends Employee{
     private double hours;
     private double wage;
@@ -16,14 +22,7 @@ public class WageEmployee extends Employee{
     }
 
     @Override
-    public void display() {
-        super.display();
-        System.out.println("Отработанные часы: " + hours);
-        System.out.println("Часовая ставка: " + wage);
-
-    }
-
-    double calculateSalary(){
+    public double calculateSalary(){
         return getBaseSalary() + (hours * wage);
     }
 }
