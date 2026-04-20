@@ -1,5 +1,6 @@
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class TaskStream {
@@ -82,7 +83,8 @@ public class TaskStream {
      * @return результат
      */
     public static boolean task7(List<Book> books) {
-        return false;
+        return books.stream()
+                .allMatch(book -> book.getAuthor().contains("Автор"));
     }
 
     /**
@@ -92,7 +94,10 @@ public class TaskStream {
      * @return не больше 3 названий книг
      */
     public static Set<String> task8(List<Book> books) {
-        return Collections.emptySet();
+        return books.stream()
+                .map(Book::getTitle)
+                .limit(3)
+                .collect(Collectors.toSet());
     }
 
     /**
@@ -102,7 +107,10 @@ public class TaskStream {
      * @return
      */
     public static List<Book> task9(List<Book> books) {
-        return Collections.emptyList();
+        return books.stream()
+                .filter(book -> Integer.parseInt(book.getTitle().replaceAll("\\D+", "")) % 2 == 0)
+                .filter(book -> book.getPrice() < 100)
+                .toList();
     }
 
     /**
@@ -112,6 +120,13 @@ public class TaskStream {
      * @return Map с двумя ключами
      */
     public static Map<String, List<Book>> task10(List<Book> books) {
+        //books.stream().
+        Optional.of(books).ifPresentOrElse(books.stream().filter(book -> {
+            return book.getPrice() > 50.0;
+        }), books.stream().filter(book -> {
+            return book.getPrice() <= 50;
+        }).collect(Collectors.)
+
         return Collections.emptyMap();
     }
 
