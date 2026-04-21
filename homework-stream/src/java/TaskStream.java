@@ -69,7 +69,6 @@ public class TaskStream {
      * @return среднюю стоимость книги
      */
     public static double task6(List<Book> books) {
-//        Optional<Double> reduce = books.stream().map(Book::getPrice).reduce(Double::sum); return reduce.get() / books.size();
         return books.stream()
                 .mapToDouble(Book::getPrice)
                 .average()
@@ -120,14 +119,8 @@ public class TaskStream {
      * @return Map с двумя ключами
      */
     public static Map<String, List<Book>> task10(List<Book> books) {
-        //books.stream().
-        Optional.of(books).ifPresentOrElse(books.stream().filter(book -> {
-            return book.getPrice() > 50.0;
-        }), books.stream().filter(book -> {
-            return book.getPrice() <= 50;
-        }).collect(Collectors.)
-
-        return Collections.emptyMap();
+        return books.stream()
+                .collect(Collectors.groupingBy(book -> book.getPrice() > 50 ? "Not Ok" : "OK"));
     }
 
     /**
@@ -137,7 +130,10 @@ public class TaskStream {
      * @return список книг с интересными отзывами
      */
     public static List<Book> task11(List<Book> books) {
-        return Collections.emptyList();
+        return books.stream()
+                .filter(book -> book.getReviews().stream()
+                        .anyMatch(review -> review.toLowerCase().contains("рекомендую")))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -147,6 +143,6 @@ public class TaskStream {
      * @return самая дешевая книга
      */
     public static Book task12(List<Book> books) {
-        return null;
+        return books.stream().min(Comparator.comparing(Book::getPrice)).get();
     }
 }
