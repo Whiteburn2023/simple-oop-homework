@@ -12,7 +12,8 @@ public class TaskStream {
      * @return сумма по всем книгам
      */
     public static double task1(List<Book> books) {
-        return books.stream().mapToDouble(Book::getPrice).sum();
+        return books.stream()
+                .mapToDouble(Book::getPrice).sum();
     }
 
     /**
@@ -22,7 +23,8 @@ public class TaskStream {
      * @return количество уникальных авторов
      */
     public static long task2(List<Book> books) {
-        return books.stream().map(Book::getAuthor).distinct().count();
+        return books.stream()
+                .map(Book::getAuthor).distinct().count();
     }
 
     /**
@@ -57,7 +59,6 @@ public class TaskStream {
      */
     public static List<String> task5(List<Book> books) {
         return books.stream()
-                .filter(book -> !book.getReviews().isEmpty())
                 .flatMap(book -> book.getReviews().stream())
                 .toList();
     }
@@ -72,7 +73,7 @@ public class TaskStream {
         return books.stream()
                 .mapToDouble(Book::getPrice)
                 .average()
-                .orElse(0.0);
+                .orElse(0);
     }
 
     /**
@@ -120,7 +121,7 @@ public class TaskStream {
      */
     public static Map<String, List<Book>> task10(List<Book> books) {
         return books.stream()
-                .collect(Collectors.groupingBy(book -> book.getPrice() > 50 ? "Not Ok" : "OK"));
+                .collect(Collectors.groupingBy(book -> book.getPrice() < 50 ? "OK" : "Not Ok"));
     }
 
     /**
@@ -132,8 +133,8 @@ public class TaskStream {
     public static List<Book> task11(List<Book> books) {
         return books.stream()
                 .filter(book -> book.getReviews().stream()
-                        .anyMatch(review -> review.toLowerCase().contains("рекомендую")))
-                .collect(Collectors.toList());
+                        .anyMatch(str -> str.toLowerCase().contains("рекомендую")))
+                .toList();
     }
 
     /**
@@ -143,6 +144,7 @@ public class TaskStream {
      * @return самая дешевая книга
      */
     public static Book task12(List<Book> books) {
-        return books.stream().min(Comparator.comparing(Book::getPrice)).get();
+        return books.stream()
+                .min(Comparator.comparing(book -> book.getPrice())).get();
     }
 }
